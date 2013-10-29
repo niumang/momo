@@ -65,6 +65,7 @@ sub import {
 Momo::Role is a subclass of Role::Tiny and support C<has> method.
 
 =head1 SYNOPSIS
+
     
     package Role1;
 
@@ -77,17 +78,23 @@ Momo::Role is a subclass of Role::Tiny and support C<has> method.
     
     1;
 
+
 =head1 DESCRIPTION
+
 
 For the detail,check L<Momo>,L<Role::Tiny>.
 
+
 =head1 SEE ALSO
+
 
 L<Role::Tiny>
 
+
 =head1 AUTHOR
 
-舌尖上的牛氓 L<yiming.jin@live.com>  
+
+舌尖上的牛氓 C<yiming.jin@live.com>  
 
 QQ: 492003149
 

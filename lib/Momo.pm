@@ -94,6 +94,7 @@ sub tap {
 Momo,a simple oop module inspired from Mojo::Base and Moo.
 
 =head1 SYNOPSIS
+
     
     package Person;
 
@@ -113,6 +114,7 @@ Momo,a simple oop module inspired from Mojo::Base and Moo.
 Why I want to write this module? If you heard about Moose or Moo,you know they 
 are pretty module for perl object-oriented program.
 Compare with old style of perl5 object-oriented program:
+
     
     package Foo;
 
@@ -172,7 +174,7 @@ But,I still find some problem:
 =over 4
 
 =item the cumbersome syntax in C<has> defined
-   
+  
 Every time when I type the C<has> blabla,does this below is really I want?
 
     has ua=> ( is => 'rw',isa => 'LWP::UserAgent',
@@ -437,12 +439,12 @@ L<Mojo::Base>,L<Moo>,L<Moose>,L<Role::Tiny>
 
 =head1 BUGS
 
-Any bugs just email L<yiming.jin@live.com>,or commit a issue on github:
+Any bugs just email C<yiming.jin@live.com>,or commit a issue on github:
 L<https://github.com/niumang/momo/issues>
 
 =head1 AUTHOR
 
-舌尖上的牛氓 L<yiming.jin@live.com>  
+舌尖上的牛氓 C<yiming.jin@live.com>  
 
 QQ: 492003149
 
@@ -462,9 +464,9 @@ licenses in the directory LICENSES.
 This program is distributed in the hope that it will be
 useful, but without any warranty; without even the implied
 warranty of merchantability or fitness for a particular purpose.
-    
 
 =cut
 
 # niumang // vim: ts=2 sw=2 expandtab
 # TODO - Edit.
+
