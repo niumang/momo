@@ -1,30 +1,34 @@
 package Momo;
+
 # ABSTRACT: a simple oop module inspired from Mojo::Base and Moo
 use utf8;
 use strict;
 use warnings;
-use feature    ();
-use IO::Handle ();
 use Carp;
 use Role::Tiny ();
 use Scalar::Util qw(set_prototype);
 use Class::Method::Modifiers;
 
-our $VERSION = 1.0;
+our $VERSION = 1.1;
 
 sub import {
     my $class = shift;
 
     {
         no strict 'refs';
+        no warnings 'redefine';
+
         my $package = caller;
         push @{ $package . '::ISA' }, 'Momo';
-
         # install methodes into package,make the package get magic feature
         # install class method modifiers
-        *{ $package . '::has' } = sub { Momo::attr( $package, @_ ) };
+        *{ $package . '::has' } = sub { attr( $package, @_ ) };
         *{ $package . '::extends' } = sub {
-            push @{ $package . '::ISA' }, $_ for @_;
+            for (@_) {
+                ( my $file = $_ ) =~ s!::|'!/!g;
+                eval { require "$file.pm" };
+                push @{ $package . '::ISA' }, $_;
+            }
         };
         *{ $package . '::with' } = sub {
             Role::Tiny->apply_roles_to_package( $package, @_ );
@@ -41,7 +45,12 @@ sub import {
     strict->import;
     warnings->import;
     utf8->import;
-    feature->import(':5.10');
+    Carp->import;
+    if ( $] >= 5.010 ) {
+        require 'feature.pm';
+        feature->import( ':' . substr("$^V",1,4) );
+    }
+
 }
 
 sub new {
@@ -467,6 +476,6 @@ warranty of merchantability or fitness for a particular purpose.
 
 =cut
 
-# niumang // vim: ts=2 sw=2 expandtab
+# niumang // vim: ts=4 sw=4 expandtab
 # TODO - Edit.
 

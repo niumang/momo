@@ -10,12 +10,13 @@ BEGIN {
 }
 
 # test oop new object
-
 {
 
     package foo;
 
     use Momo;
+
+    extends 'FileHandle';
 
     has name => 'james';
     has age  => 28;
@@ -66,7 +67,6 @@ BEGIN {
     };
     1;
 }
-
 {
 
     package bar;
@@ -152,8 +152,9 @@ is(
     '<xml><name>jack</name><age>30</age></xml>',
     'test xml info create'
 );
+is( $obj->isa("FileHandle"),1,'test obj is subclass of FileHandle');
 
 done_testing();
 
-# niumang // vim: ts=2 sw=2 expandtab
+# niumang // vim: ts=4 sw=4 expandtab
 # TODO - Edit.
