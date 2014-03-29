@@ -9,7 +9,7 @@ use Role::Tiny ();
 use Scalar::Util qw(set_prototype);
 use Class::Method::Modifiers;
 
-our $VERSION = 1.1;
+our $VERSION = 1.2;
 
 sub import {
     my $class = shift;
@@ -22,17 +22,23 @@ sub import {
         push @{ $package . '::ISA' }, 'Momo';
         # install methodes into package,make the package get magic feature
         # install class method modifiers
-        *{ $package . '::has' } = sub { attr( $package, @_ ) };
-        *{ $package . '::extends' } = sub {
+        if( not defined &{ $package."::has" } ){
+            *{ $package . '::has' } = sub { attr( $package, @_ ) };
+        }
+        if( not defined &{ $package."::extends" } ) {
+            *{ $package . '::extends' } = sub {
             for (@_) {
                 ( my $file = $_ ) =~ s!::|'!/!g;
                 eval { require "$file.pm" };
                 push @{ $package . '::ISA' }, $_;
             }
-        };
+            };
+        }
+        if( not defined &{ $package."::with" } ){
         *{ $package . '::with' } = sub {
             Role::Tiny->apply_roles_to_package( $package, @_ );
         };
+        }
         for my $method (qw(before after around)) {
             *{ $package . '::' . $method } = sub {
                 Class::Method::Modifiers::install_modifier( $package, $method,
